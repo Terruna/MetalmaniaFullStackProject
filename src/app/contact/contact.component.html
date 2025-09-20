@@ -1,0 +1,17 @@
+<div class="contact-container">
+  <h1>CONTACT US</h1>
+
+  <form [formGroup]="contactForm" (ngSubmit)="sendMessage()">
+    <input type="text" placeholder="NAME" formControlName="name">
+    <input type="email" placeholder="EMAIL" formControlName="email">
+    <textarea placeholder="MESSAGE" formControlName="message"></textarea>
+    <button type="submit">SEND MESSAGE</button>
+  </form>
+
+  <div class="contact-info">
+    <div><i class="fas fa-phone"></i> (+995) 597 09-10-21</div>
+    <div><i class="fas fa-envelope"></i> metalmaniashopp&#64;gmail.com</div>
+
+    <div><i class="fas fa-map-marker-alt"></i> Georgia, Tbilisi</div>
+  </div>
+</div>

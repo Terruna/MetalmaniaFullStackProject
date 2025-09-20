@@ -1,0 +1,181 @@
+<div class="user-profile-container">
+
+  <!-- ================= User Info Section ================= -->
+  <div class="profile-header">
+    <div class="userImage">
+      <img src="/assets/userImg.png" alt="">
+    </div>
+    <h1>Welcome, <strong>{{ userData?.userName }}</strong><span class="admin-badge" *ngIf="isAdmin">ADMIN</span>!</h1>
+    
+    <!-- Admin Panel Button (only shown for admin users) -->
+    <div *ngIf="isAdmin" class="admin-panel-btn-container">
+      <button class="admin-panel-btn" (click)="navigateToAdminPanel()">
+        ADMIN PANEL
+      </button>
+    </div>
+  </div>
+
+  <div class="profile-content">
+
+    <!-- Personal Info Section -->
+    <div class="personal-info-section">
+      <h2>PERSONAL INFO</h2>
+      
+      <!-- Display mode -->
+      <div *ngIf="!isEditing">
+        <div class="info-grid">
+          <div class="info-label">USERNAME</div>
+          <div class="info-value">{{ userData?.userName }}</div>
+
+          <div class="info-label">EMAIL</div>
+          <div class="info-value">{{ userData?.email }}</div>
+
+          <div class="info-label">CITY</div>
+          <div class="info-value">{{ userData?.city || 'Not specified' }}</div>
+
+          <div class="info-label">PHONE NUMBER</div>
+          <div class="info-value">{{ userData?.number || 'Not specified' }}</div>
+
+          <div class="info-label">SHIPPING ADDRESS</div>
+          <div class="info-value address">{{ userData?.address || 'Not specified' }}</div>
+
+          <div class="info-label">ACCOUNT STATUS</div>
+          <div class="info-value">{{ userData?.isActive ? 'Active' : 'Inactive' }}</div>
+
+          <!-- Admin role indicator -->
+          <div class="info-label" *ngIf="isAdmin">ROLE</div>
+          <div class="info-value" *ngIf="isAdmin">Administrator</div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="update-btn" (click)="updateInfo()">UPDATE INFO</button>
+          <button class="password-change-btn" (click)="togglePasswordChange()">
+            {{ isChangingPassword ? 'Cancel Password Change' : 'Change Password' }}
+          </button>
+          <button class="logout-btn" (click)="logout()">LOGOUT</button>
+        </div>
+      </div>
+
+      <!-- Edit mode -->
+      <div *ngIf="isEditing" class="edit-form-section">
+        <h2>EDIT PROFILE</h2>
+        <form [formGroup]="updateForm" class="edit-form">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" formControlName="userName" class="form-input">
+          </div>
+          
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" formControlName="email" class="form-input">
+          </div>
+          
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" formControlName="city" class="form-input">
+          </div>
+          
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" formControlName="number" class="form-input">
+          </div>
+          
+          <div class="form-group">
+            <label>Address</label>
+            <textarea formControlName="address" class="form-input address-textarea"></textarea>
+          </div>
+          
+          <div class="edit-buttons">
+            <button type="button" class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+            <button type="button" class="update-btn" (click)="saveChanges()">Save Changes</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Password change form -->
+      <div *ngIf="isChangingPassword" class="password-form-section">
+        <h2>CHANGE PASSWORD</h2>
+        <form [formGroup]="passwordForm" class="password-form">
+          <div class="form-group">
+            <label>Current Password</label>
+            <input type="password" formControlName="currentPassword" class="form-input" required>
+          </div>
+          
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" formControlName="newPassword" class="form-input" required>
+            <span class="form-hint">Must be at least 6 characters long</span>
+          </div>
+          
+          <div class="form-group">
+            <label>Confirm New Password</label>
+            <input type="password" formControlName="confirmPassword" class="form-input" required>
+          </div>
+          
+          <div *ngIf="passwordErrorMessage" class="error-message">
+            {{ passwordErrorMessage }}
+          </div>
+          
+          <div *ngIf="passwordSuccessMessage" class="success-message">
+            {{ passwordSuccessMessage }}
+          </div>
+          
+          <div class="password-buttons">
+            <button type="button" class="btn-cancel" (click)="cancelPasswordChange()">Cancel</button>
+            <button type="button" class="update-btn" (click)="changePassword()" 
+                    [disabled]="passwordForm.invalid">Change Password</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= Orders Section ================= -->
+    <div class="orders-section">
+      <h2>YOUR ORDERS</h2>
+
+      <div *ngIf="userOrders.length === 0" class="no-orders">
+        <p>You haven't placed any orders yet.</p>
+      </div>
+
+      <div class="order-list" *ngIf="userOrders.length > 0">
+        <div class="order-item" *ngFor="let order of showAllOrders ? userOrders : userOrders.slice(0,3)">
+          <div class="order-header">
+            <span class="order-id">Order #{{order.id}}</span>
+            <span class="order-date">{{order.createdAt | date:'mediumDate'}}</span>
+          </div>
+         
+          <div class="order-details">
+            <div class="order-status">Status: {{getOrderStatusText(order.status)}}</div>
+            <div class="order-total">Total: €{{order.totalAmount | number:'1.2-2'}}</div>
+            <div class="order-items-count">{{order.items.length}} item(s)</div>
+          </div>
+          
+          <!-- Improved Order Details Button Placement -->
+          <div class="order-actions">
+            <button class="detail-order-btn" routerLink="/orders" [queryParams]="{id: order.id}">
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="userOrders.length > 3" class="view-all-orders">
+        <button class="view-orders-btn" (click)="viewAllOrders()">
+          {{ showAllOrders ? 'SHOW LESS' : 'VIEW ALL ORDERS (' + userOrders.length + ')' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Logout Confirmation Modal -->
+<div *ngIf="showLogoutModal" class="logout-modal-backdrop">
+  <div class="logout-modal">
+    <h3>Confirm Logout</h3>
+    <p>Are you sure you want to logout?</p>
+    <div class="logout-modal-buttons">
+      <button class="yes-btn" (click)="confirmLogout()">Yes, Logout</button>
+      <button class="no-btn" (click)="cancelLogout()">Cancel</button>
+    </div>
+  </div>
+</div>

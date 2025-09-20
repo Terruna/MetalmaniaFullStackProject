@@ -1,0 +1,83 @@
+@font-face {
+  font-family: 'HoldMoney';
+  src: url('/assets/font/HoldMoney-Regular.woff') format('woff');
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  font-family: 'HoldMoney', sans-serif;
+  background-color: rgba(0,0,0,0.2); /* dark background */
+  color: white;
+}
+
+.faq-container h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 4rem;
+  color: red;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+/* FAQ Items */
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 0;
+  position: relative;
+}
+
+/* Question line */
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Red question mark before question */
+.faq-question::before {
+  content: "?";
+  color: red;
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 1.6rem;
+}
+
+/* Arrow icon for expand/collapse */
+.faq-question i {
+  margin-left: 10px;
+  transition: transform 0.3s;
+  color: white;
+}
+
+/* Rotate arrow when open */
+.faq-question i.fa-chevron-up {
+  transform: rotate(180deg);
+}
+
+/* Answer text */
+.faq-answer {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .faq-container h1 {
+    font-size: 3rem;
+  }
+
+  .faq-question {
+    font-size: 1.2rem;
+  }
+
+  .faq-answer {
+    font-size: 1rem;
+  }
+}

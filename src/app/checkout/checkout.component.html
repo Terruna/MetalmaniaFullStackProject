@@ -1,0 +1,241 @@
+<div class="checkout-container">
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fas fa-check-circle"></i> Checkout</h3>
+      <button class="btn btn-back" (click)="goBackToCart()">
+        <i class="fas fa-arrow-left"></i> Back to Cart
+      </button>
+    </div>
+
+    <div class="card-body">
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [style.width]="'66%'"></div>
+        </div>
+   <div class="progress-labels">
+  <span [class.completed]="currentStep > 0">Cart</span>
+  <span [class.completed]="currentStep > 1" [class.active]="currentStep === 1">Checkout</span>
+  <span [class.completed]="currentStep > 2" [class.active]="currentStep === 2">Confirmation</span>
+</div>
+      </div>
+
+      <!-- Debug info (you can remove this in production) -->
+      <div *ngIf="userLoadError" class="alert alert-warning">
+        <i class="fas fa-exclamation-triangle"></i> Could not load user data. Please check your connection.
+      </div>
+
+      <div *ngIf="!userDataLoaded" class="loading-user">
+        <i class="fas fa-spinner fa-spin"></i> Loading user information...
+      </div>
+
+      <div class="checkout-content"  *ngIf="currentStep !== 2">
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <h4><i class="fas fa-shopping-bag"></i> Order Summary</h4>
+          
+          <div class="order-items">
+            <div class="order-item" *ngFor="let item of cartItems">
+              <div class="item-image">
+                <img [src]="getProductImageUrl(item)" [alt]="item.product?.name || 'Product'" 
+                     onerror="this.src='assets/placeholder-image.jpg'">
+              </div>
+              <div class="item-details">
+                <h5>{{ item.product?.name || 'Product' }}</h5>
+                <p class="item-price">₾{{ item.product?.price | number:'1.2-2' }}</p>
+                <!-- Add size information -->
+                <p class="item-size" *ngIf="item.size !== undefined">
+                  Size: {{ getSizeName(item.size) }}
+                </p>
+              </div>
+              <div class="item-quantity">
+                <span class="quantity-badge">Qty: {{ item.quantity }}</span>
+                <p class="item-total">₾{{ (item.product ? (item.product.price * item.quantity) : 0) | number:'1.2-2' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-totals">
+            <div class="total-row">
+              <span>Subtotal</span>
+              <span>₾{{ subtotal | number:'1.2-2' }}</span>
+            </div>
+            <div class="total-row">
+              <span>Shipping</span>
+              <span>₾{{ shipping | number:'1.2-2' }}</span>
+            </div>
+            <div class="total-row grand-total">
+              <span>Total</span>
+              <span>₾{{ total | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checkout Form -->
+        <div class="checkout-form">
+          <h4><i class="fas fa-truck"></i> Shipping Information</h4>
+          
+          <!-- Display mode -->
+          <div class="user-info-card" *ngIf="userProfile && !isEditing">
+            <div class="user-info">
+              <p><strong>Shipping to:</strong></p>
+              <p>{{ getUserDisplayName() }}</p>
+              <p>{{ orderRequest.shippingAddress || 'No address provided' }}</p>
+              <p *ngIf="userProfile.number">
+                <i class="fas fa-phone"></i> {{ userProfile.number }}
+              </p>
+             
+            </div>
+            <button class="btn-edit" (click)="startEditing()">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+
+          <!-- Edit mode - MOVED INSIDE THE SHIPPING INFO SECTION -->
+          <div class="edit-form" *ngIf="isEditing">
+            <div class="form-section">
+              <h5>Edit Shipping Information</h5>
+              
+              <div class="form-group">
+                <label for="shippingAddress">Shipping Address *</label>
+                <textarea 
+                  id="shippingAddress" 
+                  class="form-control" 
+                  [(ngModel)]="editedAddress" 
+                  name="shippingAddress"
+                  rows="3"
+                  placeholder="Enter your complete shipping address"
+                  required>
+                </textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number *</label>
+                <input 
+                  type="tel" 
+                  id="phoneNumber" 
+                  class="form-control" 
+                  [(ngModel)]="editedPhoneNumber" 
+                  name="phoneNumber"
+                  placeholder="Enter your phone number for delivery updates"
+                  required>
+                <small class="form-text text-muted">
+                  We'll use this number for delivery updates and tracking
+                </small>
+              </div>
+
+              <div class="edit-actions">
+                <button type="button" class="btn btn-secondary" (click)="cancelEditing()">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+                <button type="button" class="btn btn-primary" (click)="saveEditing()">
+                  <i class="fas fa-save"></i> Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!userProfile" class="alert alert-info">
+            <i class="fas fa-info-circle"></i> Please log in to complete your order.
+          </div>
+
+          <!-- Error message display -->
+          <div *ngIf="error" class="alert alert-danger mt-3">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+          </div>
+
+          <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm" *ngIf="userProfile && !isEditing">
+            <div class="form-section">
+              <h4><i class="fas fa-credit-card"></i> Payment Method</h4>
+              
+              <div class="form-group">
+                <label for="paymentMethod">Select Payment Method</label>
+                <select 
+                  id="paymentMethod" 
+                  class="form-control" 
+                  [(ngModel)]="orderRequest.paymentMethod" 
+                  name="paymentMethod"
+                  required
+                  #paymentMethod="ngModel">
+                  <option value="Credit Card">Credit Card</option>
+                  <option value="PayPal">PayPal</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Cash on Delivery">Cash on Delivery</option>
+                </select>
+                <div class="error-msg" *ngIf="paymentMethod.invalid && paymentMethod.touched">
+                  Payment method is required
+                </div>
+              </div>
+
+              <!-- Payment form fields would go here based on selected method -->
+              <div *ngIf="orderRequest.paymentMethod === 'Credit Card'" class="payment-details">
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label for="expiryDate">Expiry Date</label>
+                    <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" class="form-control" placeholder="123">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+              <button 
+                type="submit" 
+                class="btn btn-primary btn-lg btn-order" 
+                [disabled]="checkoutForm.invalid || isSubmitting">
+                <span *ngIf="!isSubmitting" >
+                  <i class="fas fa-lock"></i> Complete Order
+                </span>
+                <span *ngIf="isSubmitting">
+                  <i class="fas fa-spinner fa-spin"></i> Processing...
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- API Response -->
+      <div class="response-section" *ngIf="currentStep === 2">
+        <div class="response-header">
+          <h4>Order Status</h4>
+        </div>
+        
+        <div class="response-body">
+          <div class="success-message" *ngIf="response && !error">
+            <div class="success-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h5>Order Created Successfully!</h5>
+            <p>Your order has been processed successfully. You will receive a confirmation email shortly.</p>
+            <button class="btn btn-continue" (click)="router.navigate(['/'])">
+              <i class="fas fa-shopping-bag"></i> Continue Shopping
+            </button>
+          </div>
+          
+          <div class="error-message" *ngIf="error">
+            <div class="error-icon">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h5>Order Failed</h5>
+            <p>{{ error }}</p>
+            <button class="btn btn-retry" (click)="onSubmit()">
+              <i class="fas fa-redo"></i> Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

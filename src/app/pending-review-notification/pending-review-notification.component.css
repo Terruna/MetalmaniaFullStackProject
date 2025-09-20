@@ -1,0 +1,119 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.popup {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: center;
+  position: relative;
+}
+
+.review-item {
+  margin-bottom: 20px;
+}
+
+.stars {
+  font-size: 25px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.stars span {
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.stars span.filled {
+  color: gold;
+}
+
+textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 8px;
+  margin-bottom: 10px;
+  resize: none;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 7px;
+  right: 20px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.order-error {
+  color: red;
+  margin-bottom: 5px;
+}
+.popup {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  max-height: 80vh; /* limit popup height */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup h2 {
+  margin-top: 0;
+}
+
+.review-list {
+  flex: 1; /* take remaining space */
+  overflow-y: auto; /* scrollable content */
+  padding-right: 5px; /* optional: avoid scrollbar overlap */
+  margin-bottom: 10px;
+}
+
+/* optional: hide scrollbar in WebKit */
+.review-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.review-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 3px;
+}

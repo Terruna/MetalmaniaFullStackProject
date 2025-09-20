@@ -1,0 +1,377 @@
+/* card-detailed.component.css - Dark Mode Theme */
+.product-detail-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  
+  color: #fff; /* default text white */
+}
+
+.navigation-controls {
+  margin-bottom: 30px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #333;
+  border-color: #555;
+}
+
+.product-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+@media (min-width: 992px) {
+  .product-detail-content {
+    flex-direction: row;
+  }
+}
+
+.image-gallery {
+  flex: 1;
+  min-width: 0;
+}
+
+.main-image {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111;
+  border: 1px solid #333;
+}
+
+.main-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+  flex-shrink: 0;
+  background-color: #111;
+}
+
+.thumbnail.active {
+  border-color: #d32f2f; /* red accent */
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-details {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 30px;
+}
+
+.product-name {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.price-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.current-price {
+  font-size: 35px;
+  font-weight: 700;
+  color: #d32f2f; /* red */
+
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.original-price {
+  font-size: 20px;
+  text-decoration: line-through;
+  color: #aaa; /* light gray */
+}
+
+.discount-badge {
+  background-color: #d32f2f;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stock-info.in-stock {
+  color: #2e7d32; /* green for in stock */
+}
+
+.stock-info.low-stock {
+  color: #ed6c02; /* orange for low stock */
+}
+
+.stock-info:not(.in-stock):not(.low-stock) {
+  color: #d32f2f; /* red */
+}
+
+.product-description h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.product-description p {
+  line-height: 1.6;
+  color: #ddd;
+  font-size: 16px;
+}
+
+.product-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #111;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.meta-label {
+  font-weight: 600;
+  min-width: 100px;
+  color: #ccc;
+}
+
+.meta-value {
+  color: #fff;
+}
+
+.action-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #111;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.qty-btn {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.qty-btn:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.quantity-controls input {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.size-selection-detail select {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background-color: #b71c1c;
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.additional-info {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: #ddd;
+  font-size: 15px;
+}
+
+.info-item i {
+  color: #d32f2f;
+}
+
+/* Size Selection */
+.size-selection-detail {
+  margin: 20px 0;
+}
+
+.size-selection-detail label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff; /* white label */
+}
+
+.size-selection-detail select {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #d32f2f; /* red border */
+  background-color: #222; /* dark background */
+  color: #fff; /* white text */
+  transition: all 0.2s ease;
+}
+
+.size-selection-detail select:hover,
+.size-selection-detail select:focus {
+  border-color: #ff4d4d; /* brighter red on hover/focus */
+  outline: none;
+}
+
+/* Quantity Selector */
+.quantity-selector {
+  margin-bottom: 20px;
+}
+
+.quantity-selector label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #d32f2f; /* red border */
+  border-radius: 6px;
+  background-color: #222; /* dark background */
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.qty-btn:hover:not(:disabled) {
+  background-color: #333; /* slightly lighter on hover */
+}
+
+.qty-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantity-controls input {
+  width: 70px;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #d32f2f;
+  background-color: #222;
+  color: #fff;
+}
+/* Toast Notification */
+.toast-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #28a745; /* green for success */
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-size: 16px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.close-toast {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+}
+.zoom-container {
+  overflow: hidden;
+  position: relative;
+  cursor: zoom-in;
+}
+
+.zoom-container:hover .zoom-image {
+  transform: scale(2); /* zoom level */
+  transition: transform 0.3s ease;
+  transform-origin: center center; /* zoom from center */
+}
+
+.zoom-image {
+  transition: transform 0.2s ease;
+}

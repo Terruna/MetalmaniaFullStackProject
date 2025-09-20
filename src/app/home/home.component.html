@@ -1,0 +1,274 @@
+<div class="main-box">
+  <div class="scrollable-content">
+
+    <!-- ================= Slider ================= -->
+    <section class="container">
+      <div class="slider-wrapper">
+        <div class="slider">
+          <img [src]="getCurrentSlideUrl()" alt="" class="slide" />
+        </div>
+
+        <div (click)="goToPrevious()" class="leftArrow">❰</div>
+        <div (click)="goToNext()" class="rightArrow">❱</div>
+
+        <div class="slider-nav">
+          <div
+            class="dot"
+            *ngFor="let slide of slides; let i = index"
+            (click)="goToSlide(i)"
+            [ngClass]="{ active: currentIndex === i }"
+          ></div>
+        </div>
+      </div>
+    </section>
+ <!-- ================= Slider ================= -->
+
+     <div
+      class="sliderr"
+      [style.--width]="'clamp(100px, 15vw, 180px)'"
+      [style.--height]="'clamp(100px, 15vw, 180px)'"
+      [style.--quantity]="totalImages()"
+      [style.--duration]="'40s'"
+    >
+      <div class="list">
+        <div
+          class="item"
+          *ngFor="let image of getAllImages(); let i = index"
+          [style.--position]="i+1"
+        >
+          <img [src]="'assets/productImage/' + image.url" alt="slider image">
+        </div>
+      </div>
+    </div>
+ <!-- ================= Slider ================= -->
+    <!-- ================= What's New ================= -->
+    <section class="product-section">
+      <div class="section-header">
+        <h2>What's New</h2>
+        <a class="seeAllLink" (click)="navigateToProducts()">Show All →</a>
+      </div>
+
+      <div class="productRow">
+        <div
+          *ngFor="let item of newProducts"
+          class="productCard"
+          (click)="navigateToProduct(item.id)"
+        >
+          <div class="productImg">
+            <img
+              [src]="'assets/productImage/' + item.images[0].url"
+              [alt]="item.name"
+            />
+          </div>
+          <div class="productInfo">
+            <span class="itemName">{{ item.name }}</span>
+            <span class="itemPrice">{{ item.price.toFixed(2) }} ₾</span>
+            <span class="newBadge">NEW</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Featured Products ================= -->
+<section class="product-section">
+  <div class="section-header">
+    <h2>Featured Products</h2>
+    <a class="seeAllLink" (click)="navigateToProducts()">Show All →</a>
+  </div>
+
+  <div class="productRow">
+    <div
+      *ngFor="let item of featuredProducts"
+      class="productCard"
+      (click)="navigateToProduct(item.id)"
+    >
+      <div class="productImg">
+        <img
+          [src]="'assets/productImage/' + item.images[0].url"
+          [alt]="item.name"
+        />
+      </div>
+      <div class="productInfo">
+        <span class="itemName">{{ item.name }}</span>
+        <span class="itemPrice">{{ item.price.toFixed(2) }} ₾</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- ================= Special Offers ================= -->
+    <section class="product-section">
+      <div class="section-header">
+        <h2>Special Offers</h2>
+        <a class="seeAllLink" (click)="navigateToProducts()">Show All →</a>
+      </div>
+
+      <div class="productRow">
+  <div
+    *ngFor="let item of productList | slice: 0:8"
+    class="productCard"
+    (click)="navigateToProduct(item.id)"
+  >
+    <div class="productImg">
+      <img
+        [src]="'assets/productImage/' + item.images[0].url"
+        [alt]="item.name"
+      />
+      <!-- Discount Badge -->
+      <div class="discount-badge">25% OFF</div>
+    </div>
+    <div class="productInfo">
+  <span class="itemName">{{ item.name }}</span>
+  <span class="itemPrice">
+    <span class="original-price">{{ item.price.toFixed(2) }} ₾</span>
+    <span class="discounted-price">{{ (item.price * 0.75).toFixed(2) }} ₾</span>
+  </span>
+</div>
+
+  </div>
+</div>
+    </section>
+
+    <!-- ================= Instagram ================= -->
+    <div class="instagramContainer">
+      <div class="instaHeadText">
+        <p class="followUs">Follow us on Instagram</p>
+      </div>
+
+      <div class="instaImgs">
+        <div class="instaItem">
+          <img src="/assets/image/Screenshot_1.png" alt="" />
+        </div>
+        <div class="instaItem">
+          <img src="/assets/image/Screenshot_2.png" alt="" />
+        </div>
+        <div class="instaItem">
+          <img src="/assets/image/Screenshot_3.png" alt="" />
+        </div>
+        <div class="instaItem">
+          <img src="/assets/image/dsfsdgfsb.png" alt="" />
+        </div>
+      </div>
+
+      <span class="hashtag">#Metalmania_shopp</span>
+      <span class="instaText">Tag us to get special offers</span>
+
+      <div class="border-wrapper">
+        <a
+          href="https://www.instagram.com/metalmania_shop"
+          target="_blank"
+        >
+          <button class="instabtn">
+            <i class="fa-brands fa-square-instagram"></i>
+          </button>
+        </a>
+      </div>
+    </div>
+
+ <!-- ================= Logo Slider ================= -->
+    <div
+      class="sliderr"
+      reverse="true"
+      style="--width:clamp(50px, 10vw, 120px); --height:clamp(50px, 10vw, 120px); --quantity: 37; --duration:50s;"
+    >
+      <div class="list">
+        <div class="item" style="--position: 1"><img src="/assets/logoSlider/(21).png" alt=""></div>
+        <div class="item" style="--position: 2"><img src="/assets/logoSlider/(24).png" alt=""></div>
+        <div class="item" style="--position: 3"><img src="/assets/logoSlider/(29).png" alt=""></div>
+        <div class="item" style="--position: 4"><img src="/assets/logoSlider/(32).png" alt=""></div>
+        <div class="item" style="--position: 5"><img src="/assets/logoSlider/(54).png" alt=""></div>
+        <div class="item" style="--position: 6"><img src="/assets/logoSlider/(57).png" alt=""></div>
+        <div class="item" style="--position: 7"><img src="/assets/logoSlider/(84).png" alt=""></div>
+        <div class="item" style="--position: 8"><img src="/assets/logoSlider/(9).png" alt=""></div>
+        <div class="item" style="--position: 9"><img src="/assets/logoSlider/136.png" alt=""></div>
+        <div class="item" style="--position: 10"><img src="/assets/logoSlider/19.png" alt=""></div>
+        <div class="item" style="--position: 11"><img src="/assets/logoSlider/31.png" alt=""></div>
+        <div class="item" style="--position: 12"><img src="/assets/logoSlider/36.png" alt=""></div>
+        <div class="item" style="--position: 13"><img src="/assets/logoSlider/67.png" alt=""></div>
+        <div class="item" style="--position: 14"><img src="/assets/logoSlider/84.png" alt=""></div>
+        <div class="item" style="--position: 15"><img src="/assets/logoSlider/86.png" alt=""></div>
+        <div class="item" style="--position: 16"><img src="/assets/logoSlider/92.png" alt=""></div>
+        <div class="item" style="--position: 17"><img src="/assets/logoSlider/Arctic-Monkeys-Logo.png" alt=""></div>
+        <div class="item" style="--position: 18"><img src="/assets/logoSlider/Deicide-Logo.png" alt=""></div>
+        <div class="item" style="--position: 19"><img src="/assets/logoSlider/Dio-Logo.png" alt=""></div>
+        <div class="item" style="--position: 20"><img src="/assets/logoSlider/Iron-Maiden-Logo.png" alt=""></div>
+        <div class="item" style="--position: 21"><img src="/assets/logoSlider/Judas-Priest-Logo.png" alt=""></div>
+        <div class="item" style="--position: 22"><img src="/assets/logoSlider/Kiss-Logo.png" alt=""></div>
+        <div class="item" style="--position: 23"><img src="/assets/logoSlider/Led-Zeppelin-Logo.png" alt=""></div>
+        <div class="item" style="--position: 24"><img src="/assets/logoSlider/Linkin-Park-Logo.png" alt=""></div>
+        <div class="item" style="--position: 25"><img src="/assets/logoSlider/Megadeth-Logo.png" alt=""></div>
+        <div class="item" style="--position: 26"><img src="/assets/logoSlider/Misfits-Logo.png" alt=""></div>
+        <div class="item" style="--position: 27"><img src="/assets/logoSlider/Nirvana-Logo.png" alt=""></div>
+        <div class="item" style="--position: 28"><img src="/assets/logoSlider/Ozzy-Osbourne-Logo.png" alt=""></div>
+        <div class="item" style="--position: 29"><img src="/assets/logoSlider/Pantera-Logo.png" alt=""></div>
+        <div class="item" style="--position: 30"><img src="/assets/logoSlider/Queen-Logo.png" alt=""></div>
+        <div class="item" style="--position: 31"><img src="/assets/logoSlider/Rammstein_logo_PNG3.png" alt=""></div>
+        <div class="item" style="--position: 32"><img src="/assets/logoSlider/Rammstein_logo_PNG4.png" alt=""></div>
+        <div class="item" style="--position: 33"><img src="/assets/logoSlider/Rammstein_logo_PNG5.png" alt=""></div>
+        <div class="item" style="--position: 34"><img src="/assets/logoSlider/Rolling-Stones-Logo.png" alt=""></div>
+        <div class="item" style="--position: 35"><img src="/assets/logoSlider/Slayer_logo_PNG3.png" alt=""></div>
+        <div class="item" style="--position: 36"><img src="/assets/logoSlider/The-Beatles-Logo.png" alt=""></div>
+        <div class="item" style="--position: 37"><img src="/assets/logoSlider/[CITYPNG.COM]Metallica White Logo Transparent PNG - 2000x2000.png" alt=""></div>
+      </div>
+    </div>
+
+
+    <!-- ================= Reviews ================= -->
+    <section class="reviews">
+      <h2 class="reviews-title">What Our Customers Say</h2>
+
+      <div
+        class="sliderr"
+        [style.--width]="'300px'"
+        [style.--height]="'180px'"
+        [style.--quantity]="reviews.length"
+        [style.--duration]="'20s'"
+      >
+        <div class="list">
+          <div
+            class="item"
+            *ngFor="let review of reviews; let i = index"
+            [style.--position]="i + 1"
+          >
+            <div class="review-card">
+              <div class="stars">{{ getStars(review.rating) }}</div>
+              <p class="review-text">{{ review.comment }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="reviews-cta">
+        🔥 Join 500+ Happy Customers —
+        <a routerLink="/product" routerLinkActive="active">Shop Now</a>
+      </p>
+    </section>
+  </div>
+</div>
+
+    <!-- <div class="cardContainer">
+
+      <div *ngFor="let item of productList;let i = index" class="card">
+        <div class="cardImg"><img [src]="'assets/productImage/'+ item.images[0].url" [alt]="item.name"></div>
+        <div class="cardText">
+          <span class="itemName">{{item.name}}</span>
+          <span class="itemPrice">{{item.price.toFixed(2)}} ₾</span>
+        </div>
+      </div> -->
+
+      <!-- <div class="card">
+        <div class="cardImg"><img [src]="" [alt]=""></div>
+        <div class="cardText">
+          <span class="itemName"></span>
+          <span class="itemPrice">$</span>
+        </div>
+      </div>
+
+    </div> -->
+    
+
+
+     
+ 
+
+

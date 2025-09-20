@@ -1,0 +1,146 @@
+<div class="product-page-container">
+  <div class="header-section">
+    <h1>Metalmania Accessories</h1>
+    <div class="header-controls">
+      <div class="search-bar">
+        <input 
+          type="text" 
+          placeholder="Search products..." 
+          [(ngModel)]="searchTerm"
+          (input)="onSearchInputChange()">
+        <button (click)="clearSearch()" *ngIf="searchTerm">
+          <i class="fas fa-times"></i> Clear
+        </button>
+      </div>
+      <div class="cart-indicator" (click)="viewCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Toggle Button -->
+  <div class="filter-toggle-btn-container">
+    <button class="filter-toggle-btn" (click)="toggleFilters()">
+      <i class="fas fa-sliders-h"></i> Filters
+    </button>
+  </div>
+
+  <!-- Overlay -->
+  <div class="filter-overlay" [class.active]="showFilters" (click)="toggleFilters()"></div>
+
+  <!-- Filter Drawer -->
+  <div class="filter-section" [class.active]="showFilters">
+    <div class="filter-header">
+      <h3>Filters</h3>
+      <button class="close-filters-btn" (click)="toggleFilters()">Close</button>
+    </div>
+
+    <div class="filter-grid">
+      <!-- Price Range Filter -->
+      <div class="filter-group">
+        <label class="filter-title">Price Range: ₾{{ priceRange }}</label>
+        <div class="price-range-slider">
+          <input 
+            type="range" 
+            min="0" 
+            max="1000" 
+            step="10"
+            [(ngModel)]="priceRange"
+            (change)="onPriceRangeChange()">
+        </div>
+        <div class="price-range-values">
+          <span>₾0</span>
+          <span>₾1000</span>
+        </div>
+      </div>
+
+      <!-- In Stock Filter -->
+      <div class="filter-group">
+        <label class="checkbox-label">
+          <input 
+            type="checkbox" 
+            [(ngModel)]="inStockOnly"> 
+          In Stock Only
+        </label>
+      </div>
+
+      <!-- Buttons -->
+      <div class="filter-buttons">
+        <button class="apply-filters" (click)="applyFilters()">Apply Filters</button>
+        <button class="reset-filters" (click)="resetFilters()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Count -->
+  <div class="filter-results">
+    <p>Showing {{ filteredProducts.length }} of {{ products.length }} products</p>
+  </div>
+
+  <!-- Loading / Error -->
+  <div class="loading" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Loading products...</p>
+  </div>
+
+  <div class="error" *ngIf="error && !isLoading">
+    <i class="fas fa-exclamation-circle"></i>
+    <p>{{ error }}</p>
+    <button (click)="fetchProducts()">Try Again</button>
+  </div>
+
+  <!-- Product List View -->
+  <div class="product-list-view" *ngIf="viewMode === 'list' && !isLoading && !error">
+    <div class="search-info" *ngIf="searchTerm">
+      <p>Showing {{filteredProducts.length}} results for "{{searchTerm}}"</p>
+    </div>
+    
+    <div class="products-grid">
+      <div class="product-card" *ngFor="let product of filteredProducts">
+        <div class="product-image" (click)="showProductDetail(product.id)">
+          <img 
+            [src]="getImageUrl(product.images)" 
+            [alt]="product.name"
+            (error)="handleImageError($event)">
+        </div>
+        <div class="product-info">
+          <h3 class="product-name" (click)="showProductDetail(product.id)">{{ product.name }}</h3>
+          <p class="product-description">{{ truncateText(product.description, 100) }}</p>
+          <p class="product-price">₾{{ product.price }}</p>
+         <div class="size-selection" *ngIf="product.stock > 0">
+  
+  <select 
+    [value]="'8'">
+    
+    
+  </select>
+</div>
+
+         
+
+          <div class="add-to-cart-container">
+            <button class="add-to-cart-btn" 
+                    [disabled]="product.stock === 0 || !getSelectedSize(product.id)"
+                    (click)="addToCart(product)">
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+            <div class="quantity-controls" *ngIf="getCartQuantity(product.id) > 0">
+              <button class="quantity-btn" (click)="decreaseQuantity(product)">-</button>
+              <span class="quantity-display">{{ getCartQuantity(product.id) }}</span>
+              <button class="quantity-btn" 
+                      [disabled]="getCartQuantity(product.id) >= product.stock"
+                      (click)="increaseQuantity(product)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-products" *ngIf="filteredProducts.length === 0 && !isLoading">
+      <i class="fas fa-search"></i>
+      <h3>No products found</h3>
+      <p>Try adjusting your search or filter criteria</p>
+    </div>
+  </div>
+</div>

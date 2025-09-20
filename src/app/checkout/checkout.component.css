@@ -1,0 +1,561 @@
+.checkout-container {
+  padding: 20px;
+
+  min-height: 100vh;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #df4e4e;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.card-header i {
+  margin-right: 10px;
+}
+
+.btn-back {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.3rem;
+}
+
+.btn-back:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.card-body {
+  padding: 25px;
+}
+
+/* Progress Bar */
+.progress-container {
+  margin-bottom: 30px;
+}
+
+.progress {
+  height: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+
+.progress-bar {
+  background-color: #df4e4e;
+  transition: width 0.3s ease;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size:1rem;
+  color: #ffffff;
+}
+
+.progress-labels .active {
+  color: #df4e4e;
+  font-weight: 600;
+}
+
+/* Checkout Content */
+.checkout-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+/* Order Summary */
+.order-summary {
+  background-color: #f8f9fc;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.order-summary h4 {
+  color: #df4e4e;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.order-summary i {
+  margin-right: 10px;
+}
+
+.order-items {
+  margin-bottom: 20px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-details h5 {
+  margin: 0 0 5px 0;
+  color: #5a5c69;
+}
+
+.item-price {
+  margin: 0;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.item-quantity {
+  text-align: right;
+}
+
+.quantity-badge {
+  background-color: #df4e4e;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.item-total {
+  margin: 5px 0 0 0;
+  font-weight: 600;
+  color: #df4e4e;
+}
+
+.order-totals {
+  border-top: 2px solid #e3e6f0;
+  padding-top: 15px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.grand-total {
+  font-weight: 700;
+  font-size: 1.1em;
+  color: #df4e4e;
+  border-top: 1px solid #e3e6f0;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+/* Checkout Form */
+.checkout-form {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.checkout-form h4 {
+  color: #df4e4e;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.user-info-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #f8f9fc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.user-info p {
+  margin: 5px 0;
+}
+
+.user-info p:first-child {
+  margin-top: 0;
+}
+
+.btn-edit {
+  background-color: #858796;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.btn-edit:hover {
+  background-color: #6f717d;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #5a5c69;
+  display: block;
+}
+
+.form-control {
+  border: 1px solid #d1d3e2;
+  border-radius: 5px;
+  padding: 10px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  width: 100%;
+}
+
+.form-control:focus {
+  border-color: #df4e4e;
+  box-shadow: 0 0 0 0.2rem rgba(223, 78, 78, 0.26);
+}
+
+.error-msg {
+  color: #e74a3b;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.payment-details {
+  background-color: #f8f9fc;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+/* Form Actions */
+.form-actions {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-order {
+  background-color: #df4e4e;
+  border-color: #df4e4e;
+  padding: 12px 30px;
+  font-weight: 600;
+  font-size: 1.1em;
+  width: 100%;
+}
+
+.btn-order:hover {
+  background-color: #d92e2e;
+  border-color: #d92e2e;
+}
+
+.btn-order:disabled {
+  background-color: #b9bdc8;
+  border-color: #b9bdc8;
+  cursor: not-allowed;
+}
+
+/* Response Section */
+.response-section {
+  margin-top: 40px;
+}
+
+.response-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e3e6f0;
+  margin-bottom: 20px;
+}
+
+.response-header h4 {
+  color: #5a5c69;
+  margin: 0;
+}
+
+.response-body {
+  text-align: center;
+}
+
+.success-message, .error-message {
+  padding: 20px;
+}
+
+.success-icon {
+  color: #1cc88a;
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.error-icon {
+  color: #e74a3b;
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.success-message h5, .error-message h5 {
+  margin-bottom: 10px;
+}
+
+.success-message p, .error-message p {
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.btn-continue, .btn-retry {
+  padding: 10px 20px;
+  font-weight: 500;
+}
+
+.btn-continue {
+  background-color: #1cc88a;
+  border-color: #1cc88a;
+  color: white;
+}
+
+.btn-continue:hover {
+  background-color: #17a673;
+  border-color: #17a673;
+  color: white;
+}
+
+.btn-retry {
+  background-color: #e74a3b;
+  border-color: #e74a3b;
+  color: white;
+}
+
+.btn-retry:hover {
+  background-color: #d52a1a;
+  border-color: #d52a1a;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .checkout-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-container {
+    padding: 10px;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .btn-back {
+    align-self: flex-end;
+  }
+  
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .item-image {
+    margin-bottom: 10px;
+  }
+  
+  .item-quantity {
+    text-align: left;
+    margin-top: 10px;
+  }
+  
+  .user-info-card {
+    flex-direction: column;
+  }
+  
+  .btn-edit {
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+}
+
+
+.item-size {
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.item-details h5 {
+  margin-bottom: 5px;
+}
+
+.item-price {
+  margin: 0;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.user-info-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-info p {
+  margin: 5px 0;
+}
+
+.user-info p:first-child {
+  margin-top: 0;
+}
+
+.user-info p:last-child {
+  margin-bottom: 0;
+}
+
+.btn-edit {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-edit:hover {
+  background: #5a6268;
+}
+
+.edit-form {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.edit-form h5 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.edit-actions .btn {
+  padding: 8px 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .user-info-card {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .edit-actions {
+    flex-direction: column;
+  }
+  
+  .edit-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Phone number styling */
+.user-info .fa-phone {
+  margin-right: 5px;
+  color: #28a745;
+}
+
+/* Form enhancements */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+textarea.form-control {
+  min-height: 80px;
+  resize: vertical;
+}
+.progress-labels .active {
+  color: #df4e4e;
+  font-weight: 600;
+}
+
+.progress-labels .completed {
+  color: #df4e4e; /* red for completed steps */
+  font-weight: 600;
+}

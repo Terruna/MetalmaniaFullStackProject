@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background-image: url(./assets/Rectangle6.png);
+      background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

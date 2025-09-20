@@ -1,0 +1,87 @@
+<!-- src/app/orders/orders.component.html -->
+<div class="orders-container">
+  <div class="orders-header">
+    <h1><i class="fas fa-shopping-bag"></i> Your Orders</h1>
+    <p>View your order history and track recent purchases</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Loading your orders...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage && !isLoading" class="error-state">
+    <i class="fas fa-exclamation-triangle"></i>
+    <p>{{ errorMessage }}</p>
+    <button class="retry-btn" (click)="loadOrders()">Try Again</button>
+  </div>
+
+  <!-- No Orders State -->
+  <div *ngIf="!isLoading && !errorMessage && orders.length === 0" class="no-orders">
+    <i class="fas fa-shopping-bag"></i>
+    <h2>No orders yet</h2>
+    <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+    <button class="shop-btn" routerLink="/products">Start Shopping</button>
+  </div>
+
+  <!-- Orders List -->
+  <div *ngIf="!isLoading && orders.length > 0" class="orders-list" style="padding-bottom: 30px;">
+    <div class="orders-count">
+      <h3>{{ orders.length }} order(s) found</h3>
+    </div>
+
+    <div class="order-card" *ngFor="let order of orders">
+      <div class="order-card-header">
+        <div class="order-info">
+          <div class="order-number">Order #{{ order.id }}</div>
+          <div class="order-date">Placed on {{ order.createdAt | date:'fullDate' }}</div>
+        </div>
+        <div class="order-status-badge" [class]="'status-' + order.status">
+          {{ getOrderStatusText(order.status) }}
+        </div>
+      </div>
+
+      <div class="order-card-body">
+        <div class="order-details">
+          <div class="detail-item">
+            <span class="label">Total Amount:</span>
+            <span class="value">₾{{ order.totalAmount | number:'1.2-2' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Payment Method:</span>
+            <span class="value">{{ order.paymentMethod }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Shipping Address:</span>
+            <span class="value">{{ order.shippingAddress }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Items:</span>
+            <span class="value">{{ getOrderTotalItems(order) }} item(s)</span>
+          </div>
+        </div>
+
+        <div class="order-items">
+          <h4>Order Items</h4>
+          <div class="items-list">
+            <div class="item" *ngFor="let item of order.items">
+              <div class="item-info">
+                <span class="item-name">Product #{{ item.productId }}</span>
+                <span class="item-quantity">Qty: {{ item.quantity }}</span>
+              </div>
+              <div class="item-price">₾{{ item.price | number:'1.2-2' }} each</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-card-footer">
+        <div class="order-total">
+          Total: ₾{{ order.totalAmount | number:'1.2-2' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

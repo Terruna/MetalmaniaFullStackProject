@@ -1,0 +1,57 @@
+<!-- src/app/register/register.component.html -->
+<div class="auth-container">
+  <div class="auth-card">
+    <h1 class="logo">METALMANIA</h1>
+    <h2>Create Account</h2>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <input 
+        type="text" 
+        placeholder="Username" 
+        formControlName="userName"
+        [class.error]="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched">
+      
+      <input 
+        type="email" 
+        placeholder="Email" 
+        formControlName="email"
+        [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      
+      <input 
+        type="text" 
+        placeholder="City" 
+        formControlName="city"
+        [class.error]="registerForm.get('city')?.invalid && registerForm.get('city')?.touched">
+      
+      <input 
+        type="number" 
+        placeholder="Phone Number" 
+        formControlName="number"
+        [class.error]="registerForm.get('number')?.invalid && registerForm.get('number')?.touched">
+      
+      <input 
+        type="text" 
+        placeholder="Address" 
+        formControlName="address"
+        [class.error]="registerForm.get('address')?.invalid && registerForm.get('address')?.touched">
+      
+      <input 
+        type="password" 
+        placeholder="Password" 
+        formControlName="password"
+        [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      
+      <button type="submit" [disabled]="registerForm.invalid || isLoading">
+        {{ isLoading ? 'Creating Account...' : 'Register' }}
+      </button>
+      
+      <p class="switch">
+        Already have an account? <a href="#" routerLink="/login" routerLinkActive="active">Login</a>
+      </p>
+    </form>
+  </div>
+</div>

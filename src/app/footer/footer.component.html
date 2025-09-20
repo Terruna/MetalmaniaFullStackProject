@@ -1,0 +1,97 @@
+<section class="footer">
+  <!-- ========== Desktop Footer ========== -->
+  <div class="sec1">
+    <ul>
+      <li><a href="https://www.instagram.com/metalmania_shop/" target="_blank">INSTAGRAM</a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=61552600144532" target="_blank">FACEBOOK</a></li>
+      <li><a routerLink="/terms" routerLinkActive="active">Terms and Conditions</a></li>
+          
+    <div class="contact-info"><i class="fas fa-envelope"></i> metalmaniashopp&#64;gmail.com</div>
+    <div class="contact-info"><i class="fas fa-phone contact-info"></i> (+995) 597 09-10-21</div>
+    </ul>
+    <ul>
+      <li><a routerLink="/contact" routerLinkActive="active"  >CONTACT</a></li>
+      <li><a routerLink="/about" routerLinkActive="active"  >ABOUT</a></li>
+      <li><a routerLink="/faq" routerLinkActive="active" >FAQ</a></li>
+      
+    </ul>
+  </div>
+  <div class="sec2">
+    <p>
+      At Metalmania, we specialize in metal band clothing and merchandise.<br>
+      <strong>Please note:</strong> For Personal Use: Our products are for personal use only. No Commercial Redistribution: Commercial resale is prohibited. Review Terms: Consult our Terms and Conditions for details.<br>
+      Thank you for choosing Metalmania!
+    </p>
+  </div>
+  <div class="sec3">
+    <img src="assets/image/image 9.png" alt="visa">
+    <img src="assets/image/image 10.png" alt="">
+    <img src="assets/image/image 11.png" alt="">
+  </div>
+</section>
+
+<!-- ========== Mobile Footer Bar ========== -->
+<section class="mobile-footer">
+  <!-- Burger menu -->
+  <div class="burger-menu" (click)="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+
+  <!-- Wishlist -->
+  <a routerLink="/wishlist" routerLinkActive="active">
+    <i class="fas fa-heart"></i>
+  </a>
+
+  <!-- Cart with badge -->
+  <a routerLink="/cart" routerLinkActive="active" class="cart-icon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+  </a>
+
+  <!-- User -->
+  <a routerLink="/user-profile" routerLinkActive="active">
+    <i class="fas fa-user"></i>
+  </a>
+
+  <!-- Contact -->
+  <a routerLink="/contact" routerLinkActive="active">
+    <i class="fas fa-envelope"></i>
+  </a>
+</section>
+
+<div id="overlay" [class.open]="menuOpen">
+  <div id="closeBtn" (click)="toggleMenu()">
+    <i class="fa-solid fa-xmark"></i>
+  </div>
+
+  <div class="overlay-links">
+     <a routerLink="/" (click)="toggleMenu()">
+      <i class="fa-solid fa-house"></i> HOME
+    </a>
+    <a routerLink="/product" (click)="toggleMenu()">
+      <i class="fa-solid fa-shirt"></i> APPAREL
+    </a>
+    <a routerLink="/accessories" (click)="toggleMenu()">
+      <i class="fa-solid fa-headphones"></i> ACCESSORIES
+    </a>
+    <a routerLink="/guitars" (click)="toggleMenu()">
+      <i class="fa-solid fa-guitar"></i> GUITARS
+    </a>
+    <a routerLink="/orders" (click)="toggleMenu()">
+      <i class="fa-solid fa-lock"></i> MY ORDERS
+    </a>
+   
+    <a routerLink="/user-profile" (click)="toggleMenu()">
+      <i class="fa-solid fa-user"></i> ACCOUNT SETTINGS
+    </a>
+    <a routerLink="/about" (click)="toggleMenu()">
+      <i class="fa-solid fa-file-lines"></i> ABOUT
+    </a>
+    <a routerLink="/contact" (click)="toggleMenu()">
+      <i class="fa-solid fa-phone"></i> CONTACT US
+    </a>
+    <a routerLink="/faq" (click)="toggleMenu()">
+      <i class="fa-solid fa-circle-question"></i> FAQ
+    </a>
+  </div>
+</div>

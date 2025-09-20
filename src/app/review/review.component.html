@@ -1,0 +1,25 @@
+<div class="reviews-section">
+  <h3>Reviews</h3>
+  <div *ngIf="reviews.length === 0">No reviews yet.</div>
+  <div *ngFor="let r of reviews" class="review-card">
+    <strong>Rating:</strong> {{ r.rating }} / 5
+    <p>{{ r.comment }}</p>
+  </div>
+</div>
+
+<div class="pending-reviews-section" *ngIf="pendingReviews.length > 0">
+  <h3>Pending Reviews</h3>
+  <div *ngFor="let pr of pendingReviews" class="pending-card">
+    <p><strong>{{ pr.name }}</strong></p>
+
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview(pr.id, pr.productId)">
+      <label>Rating:
+        <input type="number" formControlName="rating" min="1" max="5">
+      </label>
+      <label>Comment:
+        <textarea formControlName="comment" maxlength="1000"></textarea>
+      </label>
+      <button type="submit" [disabled]="reviewForm.invalid">Submit Review</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h2><i class="fas fa-shopping-cart"></i> YOUR SACRIFICE</h2>
+    <!-- FIX: Remove the duplicate (click) event -->
+    <button *ngIf="cartItems.length > 0" class="clear-cart-btn" (click)="clearCart()">
+      <i class="fas fa-trash"></i> Clear Cart
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <i class="fas fa-spinner fa-spin"></i> Loading cart...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+    <button (click)="loadProducts()">Retry</button>
+  </div>
+
+  <div *ngIf="!isLoading && cartItems.length === 0" class="empty-cart">
+    <i class="fas fa-shopping-cart"></i>
+    <p>Your cart is empty</p>
+  </div>
+
+  <div class="cart-items" *ngIf="!isLoading && cartItems.length > 0">
+    <div class="cart-item" *ngFor="let item of cartItems">
+      <div class="item-image">
+        <img [src]="getProductImageUrl(item)" [alt]="item.product?.name || 'Product'" 
+             onerror="this.src='assets/placeholder-image.jpg'">
+      </div>
+      <div class="item-info">
+        <h3>{{ item.product?.name || 'Loading product...' }}</h3>
+       <p class="size-info" *ngIf="item.size !== undefined">
+  Size: {{ item.sizeName || getSizeName(item.size) }}
+</p>
+        <div class="price">₾{{ item.product?.price | number:'1.2-2' }}</div>
+      </div>
+      <div class="item-quantity">
+        <div class="quantity-controls">
+          <button class="quantity-btn" (click)="decreaseQuantity(item)">-</button>
+          <span class="quantity">{{ item.quantity }}</span>
+          <button class="quantity-btn" (click)="increaseQuantity(item)">+</button>
+        </div>
+        <div class="item-total">₾{{ (item.product ? (item.product.price * item.quantity) : 0) | number:'1.2-2' }}</div>
+        <button class="remove-btn" (click)="removeItem(item)">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-summary" *ngIf="!isLoading && cartItems.length > 0">
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <span>₾{{ subtotal | number:'1.2-2' }}</span>
+    </div>
+    <div class="summary-row">
+      <span>Standard Shipping</span>
+      <span>₾{{ shipping | number:'1.2-2' }}</span>
+    </div>
+    <div class="divider"></div>
+    <div class="summary-row total">
+      <span>Total</span>
+      <span>₾{{ total | number:'1.2-2' }}</span>
+    </div>
+  </div>
+
+  <button *ngIf="!isLoading && cartItems.length > 0" class="checkout-btn" routerLink="/checkout">
+    ORDER NOW <i class="fas fa-arrow-right"></i>
+  </button>
+</div>

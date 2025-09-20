@@ -1,0 +1,104 @@
+<div class="navbar">
+  <div class="main-logo">
+    <img src="assets/image/logoo 2.png"
+         routerLink="/"
+         routerLinkActive="active" 
+         [routerLinkActiveOptions]="{exact:true}"
+         alt="Metalmania logo">
+  </div>
+
+  <!-- Nav with everything -->
+  <nav id="main-nav">
+      <div class="burger-menu" (click)="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <!-- Main menu (desktop only, HOME stays visible) -->
+    <ul class="ul-1">
+      <li><a routerLink="/home" routerLinkActive="active">HOME</a></li>
+      <li class="desktop-only"><a routerLink="/product" routerLinkActive="active">APPAREL</a></li>
+      <li class="desktop-only"><a routerLink="/accessories" routerLinkActive="active">ACCESSORIES</a></li>
+      <li class="desktop-only"><a routerLink="/guitars" routerLinkActive="active">GUITARS</a></li>
+    </ul>
+
+    <!-- Search -->
+    <div class="search-container">
+      <input class="search-bar" type="text" name="search" placeholder="Search" autocomplete="off" 
+             [(ngModel)]="searchQuery" (input)="onSearchInput()" (keyup.enter)="onSearch()">
+      <a href="javascript:void(0)" (click)="onSearch()">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      </a>
+      
+      <div class="search-results" *ngIf="showSearchResults">
+        <div *ngIf="searchResults.length === 0 && searchQuery.length > 2" class="no-results">
+          No products found
+        </div>
+        <div *ngFor="let product of searchResults" class="search-result-item" 
+             (click)="goToProductDetails(product)">
+          <img [src]="getImageUrl(product.images)" [alt]="product.name" (error)="handleImageError($event)">
+          <div class="product-info">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-price">{{ product.price }} ₾</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart + User -->
+    <ul class="ul-2">
+     <!-- Cart -->
+<li class="cart-wrapper">
+  <a href="javascript:void(0)" (click)="goToCart()">
+    <img class="cartImg" src="assets/70b9b934-ea0e-4207-83df-22b662bb8577 1 (2).png" alt="cart">
+    <span *ngIf="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
+  </a>
+</li>
+
+      <li>
+        <a href="javascript:void(0)" (click)="goToUser()">
+          <img src="assets/6a698166eb73ffcbde3b5c55155907ee 1.png" alt="user">
+        </a>
+      </li>
+    </ul>
+
+    <!-- Burger Icon (mobile only) -->
+  
+  </nav>
+</div>
+
+<!-- Overlay Menu -->
+<div id="overlay" [class.open]="menuOpen">
+  <div id="closeBtn" (click)="toggleMenu()">
+    <i class="fa-solid fa-xmark"></i>
+  </div>
+
+  <div class="overlay-links">
+     <a routerLink="/" (click)="toggleMenu()">
+      <i class="fa-solid fa-house"></i> HOME
+    </a>
+    <a routerLink="/product" (click)="toggleMenu()">
+      <i class="fa-solid fa-shirt"></i> APPAREL
+    </a>
+    <a routerLink="/accessories" (click)="toggleMenu()">
+      <i class="fa-solid fa-headphones"></i> ACCESSORIES
+    </a>
+    <a routerLink="/guitars" (click)="toggleMenu()">
+      <i class="fa-solid fa-guitar"></i> GUITARS
+    </a>
+    <a routerLink="/orders" (click)="toggleMenu()">
+      <i class="fa-solid fa-lock"></i> MY ORDERS
+    </a>
+  
+    <a routerLink="/user-profile" (click)="toggleMenu()">
+      <i class="fa-solid fa-user"></i> ACCOUNT SETTINGS
+    </a>
+    <a routerLink="/about" (click)="toggleMenu()">
+      <i class="fa-solid fa-file-lines"></i> ABOUT
+    </a>
+    <a routerLink="/contact" (click)="toggleMenu()">
+      <i class="fa-solid fa-phone"></i> CONTACT US
+    </a>
+    <a routerLink="/faq" (click)="toggleMenu()">
+      <i class="fa-solid fa-circle-question"></i> FAQ
+    </a>
+  </div>
+</div>

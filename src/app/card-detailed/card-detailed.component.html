@@ -1,0 +1,152 @@
+<!-- card-detailed.component.html -->
+<div class="product-detail-page">
+  <div class="navigation-controls">
+    <button class="back-btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i> Back to Products
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading product details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage && !isLoading" class="error-container">
+    <i class="fas fa-exclamation-triangle"></i>
+    <h3>Unable to load product</h3>
+    <p>{{ errorMessage }}</p>
+    <button class="retry-btn" (click)="fetchProductDetail(productId)">Try Again</button>
+    <button class="back-btn" (click)="goBack()">Go Back to Products</button>
+  </div>
+
+  <!-- Product Content -->
+  <div *ngIf="product && !isLoading" class="product-detail-content">
+    <!-- Product Images Gallery -->
+  <div class="image-gallery">
+  <!-- Main Image -->
+<div class="main-image zoom-container" (mousemove)="zoomMove($event)" (mouseleave)="resetZoom()">
+  <img 
+    [src]="getImageUrl([selectedImage])" 
+    [alt]="product.name"
+    class="zoom-image"
+    #zoomImg>
+</div>
+  <!-- Thumbnails -->
+  <div class="thumbnail-container" *ngIf="product.images && product.images.length > 1">
+    <div 
+      *ngFor="let image of product.images" 
+      class="thumbnail" 
+      [class.active]="image.id === selectedImage.id"
+      (click)="selectImage(image)">
+      <img 
+        [src]="getImageUrl([image])" 
+        [alt]="product.name"
+        (error)="handleImageError($event)">
+    </div>
+  </div>
+</div>
+
+    <!-- Product Details -->
+    <div class="product-details">
+      <h1 class="product-name">{{ product.name }}</h1>
+      
+      <div class="price-section">
+        <span class="current-price">{{ product.price.toFixed(2) }} ₾</span>
+        <span class="original-price" *ngIf="product.originalPrice">
+          {{ product.originalPrice.toFixed(2) }} ₾
+        </span>
+        <span class="discount-badge" *ngIf="product.originalPrice">
+          -{{ calculateDiscount(product.price, product.originalPrice) }}%
+        </span>
+      </div>
+
+      
+
+      <div class="product-description">
+        <h3>Description</h3>
+        <p>{{ product.description || 'No description available.' }}</p>
+      </div>
+
+      <!-- Product Metadata -->
+      <div class="product-meta">
+       
+        <div class="meta-item">
+          <span class="meta-label">Category:</span>
+          <span class="meta-value">{{ getCategoryName(product.categoryId) }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Brand:</span>
+          <span class="meta-value">{{ product.brand || 'Metalmania' }}</span>
+        </div>
+      </div>
+
+      <!-- Quantity Selector and Add to Cart -->
+      <div class="action-section" *ngIf="product.stock > 0">
+        <div class="quantity-selector">
+          <label for="quantity">Quantity:</label>
+          <div class="quantity-controls">
+            <button class="qty-btn" (click)="decreaseQuantity()">-</button>
+            <input 
+              type="number" 
+              id="quantity" 
+              min="1" 
+              [max]="product.stock" 
+              [(ngModel)]="quantity"
+              (change)="validateQuantity()">
+            <button class="qty-btn" (click)="increaseQuantity()">+</button>
+          </div>
+        </div>
+
+        <!-- Size Selection -->
+       <!-- Size Selection -->
+<div class="size-selection-detail" *ngIf="[1,2,3].includes(product.categoryId)">
+  <label>Size:</label>
+  <select [(ngModel)]="selectedSize">
+    <option [ngValue]="null">Select Size</option>
+    <option *ngFor="let size of sizeOptions" [ngValue]="size.value">
+      {{ size.name }}
+    </option>
+  </select>
+</div>
+
+
+        <button 
+          class="add-to-cart-btn" 
+          [disabled]="selectedSize===null"
+          (click)="addToCart()">
+          <i class="fas fa-shopping-cart"></i>
+          Add to Cart
+        </button>
+      </div>
+
+      <!-- Out of stock message -->
+      <div *ngIf="product.stock === 0" class="out-of-stock-message">
+        <i class="fas fa-times-circle"></i>
+        <p>This product is currently out of stock.</p>
+      </div>
+
+      <!-- Additional Info -->
+      <div class="additional-info">
+        <div class="info-item">
+          <i class="fas fa-truck"></i>
+          <span>Free shipping on orders over 100₾</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-undo"></i>
+          <span>30-day return policy</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-shield-alt"></i>
+          <span>Secure checkout</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-box" *ngIf="showSuccessToast">
+  <span>{{ toastMessage }}</span>
+  <button class="close-toast" (click)="showSuccessToast = false">&times;</button>
+</div>

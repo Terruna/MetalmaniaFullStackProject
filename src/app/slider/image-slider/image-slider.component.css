@@ -1,0 +1,68 @@
+.slide {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
+.rightArrow {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 32px;
+  font-size: 45px;
+  color: #fff;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.leftArrow {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 32px;
+  font-size: 45px;
+  color: #fff;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.slider {
+  position: relative;
+  height: 100%;
+  background-image: url(/assets/vecteezy_scary-texture-background-image-red-scratch-texture_22995456.jpg);
+  background-size: cover;
+  background-position:  center;
+  
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+ 
+}
+
+.dot {
+  margin: 0 3px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: 0.5 ease;
+}
+
+.dot:hover{
+  color: #f50000;
+}
+.dot:active{
+  color: rgb(255, 0, 0);
+}
+
+.dotsContainer .active {
+  opacity: 1;
+  color: rgb(255, 0, 0);
+}
+
+.slider img{
+  width: 100%;
+ 
+}

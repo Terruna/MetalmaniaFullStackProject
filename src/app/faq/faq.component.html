@@ -1,0 +1,13 @@
+<div class="faq-container">
+  <h1>FAQ</h1>
+
+  <div class="faq-item" *ngFor="let faq of faqs; let i = index">
+    <div class="faq-question" (click)="toggleAnswer(i)">
+      <span>{{ faq.question }}</span>
+      <i class="fas" [ngClass]="{'fa-chevron-down': !faq.open, 'fa-chevron-up': faq.open}"></i>
+    </div>
+    <div class="faq-answer" *ngIf="faq.open">
+      {{ faq.answer }}
+    </div>
+  </div>
+</div>

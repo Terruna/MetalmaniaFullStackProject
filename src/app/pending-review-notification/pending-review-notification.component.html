@@ -1,0 +1,32 @@
+<div class="overlay" *ngIf="showPopup">
+  <div class="popup">
+    <h2>Pending Order Reviews</h2>
+
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <div class="review-list">
+      <div *ngFor="let order of pendingOrders" class="review-item">
+        <p><strong>Order #{{ order.id }}</strong> (Total: ${{ order.totalAmount }})</p>
+
+        <!-- Star rating -->
+        <div class="stars">
+          <span *ngFor="let star of [1,2,3,4,5]"
+                (click)="order.rating = star"
+                [class.filled]="star <= order.rating">
+            ★
+          </span>
+        </div>
+
+        <!-- Comment field -->
+        <textarea [(ngModel)]="order.comment" placeholder="Write your review for this order..."></textarea>
+
+        <!-- Display error for this order -->
+        <div *ngIf="order.error" class="order-error">{{ order.error }}</div>
+
+        <button class="submit-btn" (click)="submitReview(order)">Submit Review</button>
+      </div>
+    </div>
+
+    <button class="close-btn" (click)="closePopup()">✕ Close</button>
+  </div>
+</div>

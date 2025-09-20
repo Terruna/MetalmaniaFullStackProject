@@ -1,0 +1,137 @@
+@font-face {
+  font-family: 'HoldMoney';
+  src: url('/assets/font/HoldMoney-Regular.woff') format('woff');
+}
+
+.contact-container {
+  color: white;
+  font-family: 'Metalmania', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  font-family: 'HoldMoney', sans-serif;
+  color: red;
+  letter-spacing: 2px;
+  font-size: 7rem;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  gap: 20px;
+}
+
+input, textarea {
+  background-color: transparent;
+  border: 3px solid transparent;
+  border-image: url(/assets/image/fe1ba525680464a19b7471be378a5f4a.jpg) 30 round;
+  padding: 12px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  resize: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: white;
+  font-family: 'HoldMoney', sans-serif;
+  letter-spacing: 1px;
+}
+
+textarea {
+  min-height: 150px;
+}
+
+button {
+  background-color: black;
+  color: white;
+  padding: 15px;
+  border: 3px solid transparent;
+  border-image: url(/assets/image/fe1ba525680464a19b7471be378a5f4a.jpg) 30 round;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.5s ease;
+}
+
+button:hover {
+  background-image: url(/assets/vecteezy_scary-texture-background-image-red-scratch-texture_22995456.jpg);
+  background-size: contain;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.contact-info i {
+  margin-right: 8px;
+  color: red;
+}
+
+.contact-info div {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  min-width: 200px; /* ensures items wrap nicely */
+}
+
+/* ===== Responsive Styles ===== */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 4rem;
+    margin-bottom: 30px;
+  }
+
+  form {
+    max-width: 80%;
+    gap: 15px;
+  }
+
+  input, textarea {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  input, textarea, button {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .contact-info div {
+    font-size: 0.85rem;
+  }
+}
